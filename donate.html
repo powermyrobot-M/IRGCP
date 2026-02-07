@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Isiolo Reticulated Giraffe Conservation Program (IRGCP)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for Donate page */
+        .donate-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: space-between;
+        }
+        
+        .donate-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .donate-info h3 {
+            color: var(--primary-brown);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .donate-impact {
+            margin: 2rem 0;
+        }
+        
+        .impact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+        
+        .impact-icon {
+            background-color: var(--accent-brown);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .donate-form-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .donation-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .donation-option {
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .donation-option input[type="radio"] {
+            display: none;
+        }
+        
+        .donation-option label {
+            display: block;
+            padding: 12px;
+            background-color: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .donation-option input[type="radio"]:checked + label {
+            background-color: var(--success-green);
+            color: white;
+            border-color: var(--success-green);
+        }
+        
+        .donation-option label:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .custom-amount {
+            margin-top: 1rem;
+        }
+        
+        .custom-amount label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-brown);
+            font-weight: 500;
+        }
+        
+        .amount-input {
+            display: flex;
+            align-items: center;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+        }
+        
+        .currency {
+            padding: 0 15px;
+            background-color: #f5f5f5;
+            font-weight: bold;
+            color: var(--dark-brown);
+        }
+        
+        .amount-input input {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            font-size: 1.1rem;
+            outline: none;
+            width: 100%;
+        }
+        
+        .donation-frequency {
+            margin: 1.5rem 0;
+        }
+        
+        .frequency-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+        
+        .frequency-option {
+            flex: 1;
+        }
+        
+        .frequency-option input[type="radio"] {
+            display: none;
+        }
+        
+        .frequency-option label {
+            display: block;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .frequency-option input[type="radio"]:checked + label {
+            background-color: var(--secondary-brown);
+            color: white;
+            border-color: var(--secondary-brown);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-brown);
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary-brown);
+        }
+        
+        .donate-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+        
+        .payment-methods {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .payment-icons i {
+            color: #777;
+        }
+        
+        /* Modal for donation confirmation */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            animation: modalFade 0.3s;
+        }
+        
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-icon {
+            font-size: 4rem;
+            color: var(--success-green);
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal h3 {
+            color: var(--primary-brown);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .modal p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .close-modal {
+            background-color: var(--secondary-brown);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .close-modal:hover {
+            background-color: var(--primary-brown);
+        }
+        
+        @media (max-width: 768px) {
+            .donate-content {
+                flex-direction: column;
+            }
+            
+            .donation-options {
+                flex-direction: column;
+            }
+            
+            .frequency-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <i class="fas fa-giraffe logo-icon"></i>
+                <div class="logo-text">
+                    <h1>IRGCP</h1>
+                    <p>Isiolo Reticulated Giraffe Conservation Program</p>
+                </div>
+            </div>
+            
+            <nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="donate.html" class="current-page">Donate</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Support Giraffe Conservation</h1>
+            <p>Your donation helps protect reticulated giraffes and their habitat in Isiolo County, Kenya.</p>
+            <a href="#donate-form" class="btn btn-donate">Donate Now</a>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Donate Section -->
+        <section id="donate-form">
+            <h2 class="section-title">Make a Donation</h2>
+            
+            <div class="donate-content">
+                <div class="donate-info">
+                    <h3>Your Donation Makes a Difference</h3>
+                    <p>Every contribution to IRGCP helps us protect reticulated giraffes in Isiolo County. Your support enables us to:</p>
+                    
+                    <div class="donate-impact">
+                        <div class="impact-item">
+                            <div class="impact-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>
+                                <strong>Protect giraffe habitats</strong> from encroachment and degradation
+                            </div>
+                        </div>
+                        
+                        <div class="impact-item">
+                            <div class="impact-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <strong>Engage local communities</strong> in conservation efforts
+                            </div>
+                        </div>
+                        
+                        <div class="impact-item">
+                            <div class="impact-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div>
+                                <strong>Conduct vital research</strong> on giraffe populations and behavior
+                            </div>
+                        </div>
+                        
+                        <div class="impact-item">
+                            <div class="impact-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <strong>Provide education programs</strong> for schools and communities
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="impact" style="margin-top: 3rem;">
+                        <h3 style="color: var(--primary-brown); margin-bottom: 1.5rem;">Our Impact</h3>
+                        <p>Thanks to donor support, we've achieved significant milestones in giraffe conservation:</p>
+                        <ul style="list-style: none; margin-top: 1rem;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;"><i class="fas fa-check" style="color: var(--success-green); margin-right: 10px;"></i> 15% increase in giraffe populations in the last 3 years</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;"><i class="fas fa-check" style="color: var(--success-green); margin-right: 10px;"></i> 500+ community members trained in conservation practices</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;"><i class="fas fa-check" style="color: var(--success-green); margin-right: 10px;"></i> 2,000+ acres of habitat protected and restored</li>
+                            <li style="padding: 0.5rem 0;"><i class="fas fa-check" style="color: var(--success-green); margin-right: 10px;"></i> 50+ anti-poaching patrols conducted monthly</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="donate-form-container">
+                    <h3 style="color: var(--primary-brown); margin-bottom: 1.5rem; text-align: center;">Make a Donation</h3>
+                    
+                    <form id="donationForm">
+                        <div class="donation-options">
+                            <div class="donation-option">
+                                <input type="radio" id="amount-25" name="donation-amount" value="25">
+                                <label for="amount-25">$25</label>
+                            </div>
+                            <div class="donation-option">
+                                <input type="radio" id="amount-50" name="donation-amount" value="50">
+                                <label for="amount-50">$50</label>
+                            </div>
+                            <div class="donation-option">
+                                <input type="radio" id="amount-100" name="donation-amount" value="100">
+                                <label for="amount-100">$100</label>
+                            </div>
+                            <div class="donation-option">
+                                <input type="radio" id="amount-250" name="donation-amount" value="250">
+                                <label for="amount-250">$250</label>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-amount">
+                            <label for="custom-amount">Or enter your own amount:</label>
+                            <div class="amount-input">
+                                <span class="currency">$</span>
+                                <input type="number" id="custom-amount" name="custom-amount" min="1" step="1" placeholder="Other amount">
+                            </div>
+                        </div>
+                        
+                        <div class="donation-frequency">
+                            <label>Donation Frequency:</label>
+                            <div class="frequency-options">
+                                <div class="frequency-option">
+                                    <input type="radio" id="frequency-one" name="donation-frequency" value="one-time" checked>
+                                    <label for="frequency-one">One Time</label>
+                                </div>
+                                <div class="frequency-option">
+                                    <input type="radio" id="frequency-monthly" name="donation-frequency" value="monthly">
+                                    <label for="frequency-monthly">Monthly</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="donor-name">Full Name *</label>
+                            <input type="text" id="donor-name" name="donor-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="donor-email">Email Address *</label>
+                            <input type="email" id="donor-email" name="donor-email" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-donate donate-btn">
+                            <i class="fas fa-heart" style="margin-right: 8px;"></i> Donate Now
+                        </button>
+                        
+                        <div class="payment-methods">
+                            <p>Secure payment processed by</p>
+                            <div class="payment-icons">
+                                <i class="fab fa-cc-visa" title="Visa"></i>
+                                <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                                <i class="fab fa-cc-amex" title="American Express"></i>
+                                <i class="fab fa-cc-paypal" title="PayPal"></i>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Other Ways to Support -->
+        <section id="about" style="background-color: var(--light-tan); padding: 4rem 2rem; border-radius: 10px; margin-top: 3rem;">
+            <h2 class="section-title">Other Ways to Support</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div style="background-color: white; padding: 2rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--volunteer-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 style="color: var(--primary-brown); margin-bottom: 1rem;">Volunteer</h3>
+                    <p>Donate your time and skills to support our conservation efforts on the ground in Isiolo.</p>
+                    <a href="get-involved.html" class="btn btn-volunteer" style="margin-top: 1rem;">Volunteer With Us</a>
+                </div>
+                
+                <div style="background-color: white; padding: 2rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--partner-purple); margin-bottom: 1rem;">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 style="color: var(--primary-brown); margin-bottom: 1rem;">Partner</h3>
+                    <p>Explore partnership opportunities for businesses and organizations to support our work.</p>
+                    <a href="get-involved.html" class="btn btn-partner" style="margin-top: 1rem;">Become a Partner</a>
+                </div>
+                
+                <div style="background-color: white; padding: 2rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--accent-brown); margin-bottom: 1rem;">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3 style="color: var(--primary-brown); margin-bottom: 1rem;">Spread the Word</h3>
+                    <p>Help raise awareness about reticulated giraffe conservation by sharing our work with others.</p>
+                    <div class="social-icons" style="justify-content: center; margin-top: 1rem;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Donation Confirmation Modal -->
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Thank You for Your Donation!</h3>
+            <p id="donationMessage">Your generous contribution will help protect reticulated giraffes in Isiolo County.</p>
+            <p>A confirmation email has been sent to <strong id="donorEmail"></strong>.</p>
+            <div style="margin-top: 1.5rem;">
+                <button class="close-modal" id="closeModal">Continue</button>
+                <a href="index.html" class="btn btn-secondary" style="margin-left: 1rem;">Back to Home</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>IRGCP</h3>
+                    <p>Isiolo Reticulated Giraffe Conservation Program</p>
+                    <p>Dedicated to the protection and preservation of reticulated giraffes in Isiolo, Kenya through community-based conservation.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="get-involved.html">Get Involved</a></li>
+                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#impact">Our Impact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> Isiolo County, Kenya</li>
+                        <li><i class="fas fa-phone" style="margin-right: 10px;"></i> +254 700 123 456</li>
+                        <li><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@irgcp.org</li>
+                        <li><i class="fas fa-clock" style="margin-right: 10px;"></i> Mon-Fri: 9:00 AM - 5:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Isiolo Reticulated Giraffe Conservation Program (IRGCP). All rights reserved.</p>
+                <p style="margin-top: 0.5rem;">Conserving Kenya's iconic reticulated giraffes for future generations.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Donation Form Handling
+        const donationForm = document.getElementById('donationForm');
+        const donationModal = document.getElementById('donationModal');
+        const closeModal = document.getElementById('closeModal');
+        const donationMessage = document.getElementById('donationMessage');
+        const donorEmail = document.getElementById('donorEmail');
+        
+        // Handle radio button selection
+        const donationRadios = document.querySelectorAll('input[name="donation-amount"]');
+        const customAmountInput = document.getElementById('custom-amount');
+        
+        donationRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    customAmountInput.value = '';
+                }
+            });
+        });
+        
+        customAmountInput.addEventListener('input', function() {
+            donationRadios.forEach(radio => {
+                radio.checked = false;
+            });
+        });
+        
+        // Form submission
+        donationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const donorName = document.getElementById('donor-name').value;
+            const donorEmailValue = document.getElementById('donor-email').value;
+            
+            // Get donation amount
+            let donationAmount = 0;
+            let selectedRadio = document.querySelector('input[name="donation-amount"]:checked');
+            
+            if (selectedRadio) {
+                donationAmount = selectedRadio.value;
+            } else if (customAmountInput.value && customAmountInput.value > 0) {
+                donationAmount = customAmountInput.value;
+            } else {
+                alert('Please select or enter a donation amount.');
+                return;
+            }
+            
+            // Get donation frequency
+            const donationFrequency = document.querySelector('input[name="donation-frequency"]:checked').value;
+            
+            // Validate form
+            if (!donorName || !donorEmailValue) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Show confirmation modal with personalized message
+            donorEmail.textContent = donorEmailValue;
+            
+            let frequencyText = donationFrequency === 'monthly' ? 'monthly ' : '';
+            donationMessage.textContent = `Thank you for your ${frequencyText}$${donationAmount} donation, ${donorName}! Your generous contribution will help protect reticulated giraffes in Isiolo County.`;
+            
+            // Show modal
+            donationModal.style.display = 'flex';
+            
+            // In a real application, you would send this data to a server here
+            console.log('Donation submitted:', {
+                name: donorName,
+                email: donorEmailValue,
+                amount: donationAmount,
+                frequency: donationFrequency
+            });
+            
+            // Reset form after submission
+            donationForm.reset();
+            
+            // Reset radio buttons
+            donationRadios.forEach(radio => {
+                radio.checked = false;
+            });
+            
+            // Set one-time as default frequency
+            document.getElementById('frequency-one').checked = true;
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            donationModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === donationModal) {
+                donationModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

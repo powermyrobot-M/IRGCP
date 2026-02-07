@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Isiolo Reticulated Giraffe Conservation Program (IRGCP)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles specific to home page */
+        .home-about {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+        }
+        
+        .home-about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .home-about-text {
+            flex: 2;
+        }
+        
+        .home-about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .home-about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-brown);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            color: var(--primary-brown);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .gallery-preview {
+            margin-top: 3rem;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(139, 69, 19, 0.8);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        /* FIX: Enhanced giraffe icon visibility with maroon color */
+        .logo-icon {
+            color: #800000 !important; /* Maroon color */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 3rem !important; /* Slightly larger */
+        }
+        
+        /* FIX: Make donation button more visible */
+        .btn-donate {
+            background-color: #d32f2f !important; /* Brighter red */
+            color: white !important;
+            font-weight: bold !important;
+            padding: 1.2rem 3rem !important;
+            font-size: 1.2rem !important;
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4) !important;
+            border: none !important;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-donate:hover {
+            background-color: #b71c1c !important;
+            transform: translateY(-5px) !important;
+            box-shadow: 0 10px 25px rgba(183, 28, 28, 0.5) !important;
+        }
+        
+        .btn-donate:active {
+            transform: translateY(-2px) !important;
+        }
+        
+        /* Add a subtle animation to draw attention */
+        @keyframes pulse-donate {
+            0% { box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4); }
+            50% { box-shadow: 0 6px 25px rgba(211, 47, 47, 0.7); }
+            100% { box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4); }
+        }
+        
+        .btn-donate {
+            animation: pulse-donate 2s infinite;
+        }
+        
+        /* Make hero donation button even more prominent */
+        .hero .btn-donate {
+            font-size: 1.3rem !important;
+            padding: 1.3rem 3.5rem !important;
+            margin-top: 1rem;
+        }
+        
+        /* Highlight donation section */
+        .donation-highlight {
+            background: linear-gradient(135deg, #d32f2f 0%, #8B4513 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .donation-highlight:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 20s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-20px, -20px) rotate(360deg); }
+        }
+        
+        .donation-highlight h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .donation-highlight p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Responsive adjustments for the icon */
+        @media (max-width: 768px) {
+            .logo-icon {
+                font-size: 2.5rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <!-- Fixed: Giraffe icon with maroon color -->
+                <i class="fas fa-giraffe logo-icon"></i>
+                <div class="logo-text">
+                    <h1>IRGCP</h1>
+                    <p>Isiolo Reticulated Giraffe Conservation Program</p>
+                </div>
+            </div>
+            
+            <nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="current-page">Home</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="donate.html">Donate</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Protecting Reticulated Giraffes</h1>
+            <p>Join us in conserving the iconic reticulated giraffe population in Isiolo County, Kenya through community-based conservation initiatives.</p>
+            <div class="quick-links">
+                <a href="get-involved.html" class="btn btn-primary">Get Involved</a>
+                <!-- Fixed: More prominent donation button -->
+                <a href="donate.html" class="btn btn-donate">
+                    <i class="fas fa-heart" style="margin-right: 8px;"></i> Donate Now
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Donation Highlight Section -->
+        <div class="donation-highlight">
+            <h2>Your Donation Makes a Difference</h2>
+            <p>Every contribution helps protect reticulated giraffes from habitat loss, poaching, and human-wildlife conflict in Isiolo County.</p>
+            <a href="donate.html" class="btn btn-donate" style="background-color: white !important; color: #d32f2f !important; border: 2px solid white !important;">
+                <i class="fas fa-gift" style="margin-right: 8px;"></i> Support Our Mission
+            </a>
+        </div>
+        
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">About IRGCP</h2>
+            <div class="home-about">
+                <div class="home-about-content">
+                    <div class="home-about-text">
+                        <h3 style="color: var(--primary-brown); margin-bottom: 1.5rem;">Our Mission</h3>
+                        <p>The Isiolo Reticulated Giraffe Conservation Program (IRGCP) is dedicated to the conservation and recovery of the endangered reticulated giraffe in Isiolo County, Kenya. Inspired by initiatives like the Somali Giraffe Project and Reticulated Giraffe Awareness Program, we focus on community-based conservation through research, education, and local involvement.</p>
+                        <p style="margin-top: 1rem;">Our vision is to secure a sustainable future for reticulated giraffes and their habitats through participatory conservation, research, and community engagements. Our mission is to support the protection and conservation of these magnificent animals by addressing threats such as poaching, habitat loss, and human-wildlife conflict.</p>
+                        <div class="quick-links" style="margin-top: 2rem; justify-content: flex-start;">
+                            <a href="get-involved.html" class="btn btn-primary">Learn More</a>
+                            <a href="donate.html" class="btn btn-donate" style="padding: 0.9rem 2rem !important; font-size: 1rem !important;">
+                                <i class="fas fa-donate" style="margin-right: 5px;"></i> Donate
+                            </a>
+                        </div>
+                    </div>
+                    <div class="home-about-image">
+                        <img src="https://giraffeconservation.org/wp-content/uploads/2024/11/featured-16-9_reticulated-06-topaz.jpg" alt="Reticulated Giraffe">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Protection</h3>
+                    <p>Protecting giraffe habitats from encroachment and poaching through community patrols and monitoring.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community</h3>
+                    <p>Engaging local communities in conservation efforts and creating sustainable livelihood alternatives.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Education</h3>
+                    <p>Providing conservation education programs for schools and communities in Isiolo County.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gallery Preview -->
+        <section id="gallery">
+            <h2 class="section-title">Giraffe Gallery</h2>
+            <p class="page-intro">Explore the beauty of reticulated giraffes in their natural habitat in Isiolo County.</p>
+            
+            <div class="gallery-preview">
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://giraffeconservation.org/wp-content/uploads/2024/11/featured-16-9_reticulated-03-topaz-1024x576.jpg" alt="Reticulated Giraffe">
+                        <div class="gallery-overlay">Reticulated Giraffe in Isiolo</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://www.mpalalive.org/uploads/gallery/reticulated-giraffe_gallery_1.jpg" alt="Reticulated Giraffe">
+                        <div class="gallery-overlay">Giraffe Family</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://res.cloudinary.com/dr0zfbman/images/f_auto,q_auto:good/v1742278390/WordPress%20Content/reticulated-giraffe_Helene-Hoffman-1/reticulated-giraffe_Helene-Hoffman-1.jpg?_i=AA" alt="Reticulated Giraffe">
+                        <div class="gallery-overlay">Feeding Time</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://cdn.sci.news/images/enlarge3/image_4179_1e-Reticulated-Giraffe.jpg" alt="Reticulated Giraffe">
+                        <div class="gallery-overlay">In the Savannah</div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#gallery" class="btn btn-secondary">View More Photos</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section style="background-color: var(--light-tan); padding: 4rem 2rem; border-radius: 10px; text-align: center; margin-top: 3rem;">
+            <h2 style="color: var(--primary-brown); margin-bottom: 1.5rem;">Ready to Make a Difference?</h2>
+            <p style="max-width: 600px; margin: 0 auto 2rem; font-size: 1.1rem;">Join our community of conservationists and help protect reticulated giraffes for future generations.</p>
+            <div class="quick-links">
+                <!-- Enhanced donation button in call to action -->
+                <a href="donate.html" class="btn btn-donate" style="animation: none;">
+                    <i class="fas fa-hand-holding-heart" style="margin-right: 8px;"></i> Donate Now
+                </a>
+                <a href="get-involved.html" class="btn btn-primary">Get Involved</a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>IRGCP</h3>
+                    <p>Isiolo Reticulated Giraffe Conservation Program</p>
+                    <p>Dedicated to the protection and preservation of reticulated giraffes in Isiolo, Kenya through community-based conservation.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="get-involved.html">Get Involved</a></li>
+                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> Isiolo County, Kenya</li>
+                        <li><i class="fas fa-phone" style="margin-right: 10px;"></i> +254 700 123 456</li>
+                        <li><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@irgcp.org</li>
+                        <li><i class="fas fa-clock" style="margin-right: 10px;"></i> Mon-Fri: 9:00 AM - 5:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Isiolo Reticulated Giraffe Conservation Program (IRGCP). All rights reserved.</p>
+                <p style="margin-top: 0.5rem;">Conserving Kenya's iconic reticulated giraffes for future generations.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Rotating hero background
+        const backgrounds = [
+            'https://giraffeconservation.org/wp-content/uploads/2024/11/featured-16-9_reticulated-03-topaz-1024x576.jpg',
+            'https://www.mpalalive.org/uploads/gallery/reticulated-giraffe_gallery_1.jpg',
+            'https://giraffeconservation.org/wp-content/uploads/2024/11/featured-16-9_reticulated-06-topaz.jpg'
+        ];
+        let currentBg = 0;
+        const hero = document.querySelector('.hero');
+        
+        // Change background every 7 seconds
+        setInterval(() => {
+            currentBg = (currentBg + 1) % backgrounds.length;
+            hero.style.backgroundImage = `url('${backgrounds[currentBg]}')`;
+        }, 7000);
+        
+        // Add visual feedback for donation buttons
+        document.querySelectorAll('.btn-donate').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

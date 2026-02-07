@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Involved - Isiolo Reticulated Giraffe Conservation Program (IRGCP)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for Get Involved page */
+        .involved-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .involved-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .involved-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .donate-icon {
+            color: var(--success-green);
+        }
+        
+        .volunteer-icon {
+            color: var(--volunteer-blue);
+        }
+        
+        .internship-icon {
+            color: var(--accent-brown);
+        }
+        
+        .partner-icon {
+            color: var(--partner-purple);
+        }
+        
+        .event-icon {
+            color: var(--warning-orange);
+        }
+        
+        .card-header h3 {
+            font-size: 1.5rem;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-body {
+            padding: 0 2rem 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .card-body p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .benefits-list li {
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .benefits-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: bold;
+        }
+        
+        .card-footer {
+            padding: 0 2rem 2rem;
+            text-align: center;
+        }
+        
+        /* Events Section */
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .event-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .event-date {
+            background-color: var(--primary-brown);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .event-date .day {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .event-date .month {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+        
+        .event-content {
+            padding: 1.5rem;
+        }
+        
+        .event-content h3 {
+            color: var(--primary-brown);
+            margin-bottom: 0.8rem;
+        }
+        
+        .event-details {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .event-details i {
+            margin-right: 8px;
+            color: var(--accent-brown);
+        }
+        
+        /* Modal for confirmation */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            animation: modalFade 0.3s;
+        }
+        
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-icon {
+            font-size: 4rem;
+            color: var(--success-green);
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal h3 {
+            color: var(--primary-brown);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .modal p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .close-modal {
+            background-color: var(--secondary-brown);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .close-modal:hover {
+            background-color: var(--primary-brown);
+        }
+        
+        @media (max-width: 768px) {
+            .involved-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <i class="fas fa-giraffe logo-icon"></i>
+                <div class="logo-text">
+                    <h1>IRGCP</h1>
+                    <p>Isiolo Reticulated Giraffe Conservation Program</p>
+                </div>
+            </div>
+            
+            <nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="get-involved.html" class="current-page">Get Involved</a></li>
+                    <li><a href="donate.html">Donate</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Get Involved</h1>
+            <p>Join our conservation efforts and help protect reticulated giraffes in Isiolo County, Kenya.</p>
+            <a href="#options" class="btn btn-primary">Explore Opportunities</a>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Introduction -->
+        <section>
+            <h2 class="section-title">Ways to Get Involved</h2>
+            <p class="page-intro">There are many ways you can support the Isiolo Reticulated Giraffe Conservation Program. Whether through financial contributions, volunteering your time, or partnering with us, every action makes a difference in protecting these majestic animals.</p>
+            
+            <!-- Involvement Options -->
+            <div id="options" class="involved-options">
+                <!-- Donate Card -->
+                <div class="involved-card">
+                    <div class="card-header">
+                        <div class="card-icon donate-icon">
+                            <i class="fas fa-donate"></i>
+                        </div>
+                        <h3>Donate</h3>
+                        <p>Financial Support</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Your donation directly supports giraffe conservation efforts in Isiolo County. Funds are used for:</p>
+                        <ul class="benefits-list">
+                            <li>Habitat protection and restoration</li>
+                            <li>Anti-poaching patrols and equipment</li>
+                            <li>Community education programs</li>
+                            <li>Scientific research and monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="donate.html" class="btn btn-donate">Donate Now</a>
+                    </div>
+                </div>
+                
+                <!-- Volunteer Card -->
+                <div class="involved-card">
+                    <div class="card-header">
+                        <div class="card-icon volunteer-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Volunteer</h3>
+                        <p>Give Your Time</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Join our on-the-ground conservation efforts in Isiolo. Volunteer opportunities include:</p>
+                        <ul class="benefits-list">
+                            <li>Field research assistance</li>
+                            <li>Community outreach programs</li>
+                            <li>Conservation education</li>
+                            <li>Visitor center operations</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-volunteer" id="volunteerBtn">Apply to Volunteer</button>
+                    </div>
+                </div>
+                
+                <!-- Internships Card -->
+                <div class="involved-card">
+                    <div class="card-header">
+                        <div class="card-icon internship-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Internships</h3>
+                        <p>Gain Experience</p>
+                    </div>
+                    <div class="card-body">
+                        <p>We offer internship programs for students and recent graduates in conservation-related fields. Internships provide:</p>
+                        <ul class="benefits-list">
+                            <li>Hands-on field experience</li>
+                            <li>Mentorship from conservation experts</li>
+                            <li>Research project opportunities</li>
+                            <li>Networking in conservation circles</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-secondary" id="internshipBtn">Learn About Internships</button>
+                    </div>
+                </div>
+                
+                <!-- Partnerships Card -->
+                <div class="involved-card">
+                    <div class="card-header">
+                        <div class="card-icon partner-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Partnerships</h3>
+                        <p>Collaborate With Us</p>
+                    </div>
+                    <div class="card-body">
+                        <p>We collaborate with organizations, businesses, and institutions to expand our conservation impact. Partnership opportunities include:</p>
+                        <ul class="benefits-list">
+                            <li>Corporate sponsorship programs</li>
+                            <li>Research collaborations</li>
+                            <li>Conservation technology partnerships</li>
+                            <li>Educational institution partnerships</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-partner" id="partnerBtn">Become a Partner</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Events Section -->
+        <section id="events">
+            <h2 class="section-title">Upcoming Events</h2>
+            <p class="page-intro">Join us for our upcoming conservation events and activities in Isiolo County.</p>
+            
+            <div class="events-container">
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="day">15</span>
+                        <span class="month">March</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>Giraffe Conservation Workshop</h3>
+                        <div class="event-details">
+                            <i class="fas fa-clock"></i>
+                            <span>9:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="event-details">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Isiolo Community Center</span>
+                        </div>
+                        <p>Join us for a day of learning about reticulated giraffe conservation. Open to community members, students, and conservation enthusiasts.</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" id="event1Btn">Register Now</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="day">22</span>
+                        <span class="month">April</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>Community Tree Planting Day</h3>
+                        <div class="event-details">
+                            <i class="fas fa-clock"></i>
+                            <span>8:00 AM - 12:00 PM</span>
+                        </div>
+                        <div class="event-details">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Isiolo Giraffe Corridor</span>
+                        </div>
+                        <p>Help restore giraffe habitat by planting native trees in critical corridors. All ages welcome. Tools and saplings provided.</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" id="event2Btn">Join This Event</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="day">5</span>
+                        <span class="month">June</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>World Environment Day Celebration</h3>
+                        <div class="event-details">
+                            <i class="fas fa-clock"></i>
+                            <span>10:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="event-details">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Isiolo Town Park</span>
+                        </div>
+                        <p>Celebrate World Environment Day with educational exhibits, children's activities, and presentations about giraffe conservation.</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" id="event3Btn">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section style="background-color: var(--light-tan); padding: 4rem 2rem; border-radius: 10px; text-align: center; margin-top: 3rem;">
+            <h2 style="color: var(--primary-brown); margin-bottom: 1.5rem;">Ready to Take Action?</h2>
+            <p style="max-width: 600px; margin: 0 auto 2rem; font-size: 1.1rem;">Your support makes a real difference in protecting reticulated giraffes and their habitat.</p>
+            <div class="quick-links" style="justify-content: center; display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                <a href="donate.html" class="btn btn-donate">Make a Donation</a>
+                <a href="index.html" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="modalTitle">Thank You!</h3>
+            <p id="modalMessage">Your application has been submitted successfully.</p>
+            <button class="close-modal" id="closeModal">Continue</button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>IRGCP</h3>
+                    <p>Isiolo Reticulated Giraffe Conservation Program</p>
+                    <p>Dedicated to the protection and preservation of reticulated giraffes in Isiolo, Kenya through community-based conservation.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="get-involved.html">Get Involved</a></li>
+                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#events">Events</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> Isiolo County, Kenya</li>
+                        <li><i class="fas fa-phone" style="margin-right: 10px;"></i> +254 700 123 456</li>
+                        <li><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@irgcp.org</li>
+                        <li><i class="fas fa-clock" style="margin-right: 10px;"></i> Mon-Fri: 9:00 AM - 5:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Isiolo Reticulated Giraffe Conservation Program (IRGCP). All rights reserved.</p>
+                <p style="margin-top: 0.5rem;">Conserving Kenya's iconic reticulated giraffes for future generations.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Get Involved Section Functionality
+        const volunteerBtn = document.getElementById('volunteerBtn');
+        const internshipBtn = document.getElementById('internshipBtn');
+        const partnerBtn = document.getElementById('partnerBtn');
+        const event1Btn = document.getElementById('event1Btn');
+        const event2Btn = document.getElementById('event2Btn');
+        const event3Btn = document.getElementById('event3Btn');
+        const confirmationModal = document.getElementById('confirmationModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        
+        // Volunteer button click
+        volunteerBtn.addEventListener('click', function() {
+            modalTitle.textContent = "Volunteer Application";
+            modalMessage.textContent = "Thank you for your interest in volunteering with IRGCP! Please email your resume and cover letter to volunteers@irgcp.org. Our volunteer coordinator will contact you with more information.";
+            confirmationModal.style.display = 'flex';
+        });
+        
+        // Internship button click
+        internshipBtn.addEventListener('click', function() {
+            modalTitle.textContent = "Internship Program";
+            modalMessage.textContent = "Thank you for your interest in our internship program! Our internship coordinator will contact you with more information about available positions and application requirements.";
+            confirmationModal.style.display = 'flex';
+        });
+        
+        // Partnership button click
+        partnerBtn.addEventListener('click', function() {
+            modalTitle.textContent = "Partnership Opportunities";
+            modalMessage.textContent = "Thank you for your interest in partnering with IRGCP! Our partnership coordinator will contact you to discuss collaboration opportunities that align with our conservation goals.";
+            confirmationModal.style.display = 'flex';
+        });
+        
+        // Event registration buttons
+        event1Btn.addEventListener('click', function() {
+            modalTitle.textContent = "Event Registration";
+            modalMessage.textContent = "Thank you for registering for the Giraffe Conservation Workshop! You will receive an email confirmation with event details and instructions.";
+            confirmationModal.style.display = 'flex';
+        });
+        
+        event2Btn.addEventListener('click', function() {
+            modalTitle.textContent = "Event Registration";
+            modalMessage.textContent = "Thank you for registering for the Community Tree Planting Day! You will receive an email confirmation with event details and instructions.";
+            confirmationModal.style.display = 'flex';
+        });
+        
+        event3Btn.addEventListener('click', function() {
+            modalTitle.textContent = "Event Registration";
+            modalMessage.textContent = "Thank you for your interest in the World Environment Day Celebration! You will receive an email with more details about the event.";
+            confirmationModal.style.display = 'flex';
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            confirmationModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
